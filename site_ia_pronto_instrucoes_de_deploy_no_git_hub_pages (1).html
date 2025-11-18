@@ -1,0 +1,169 @@
+<!-- Novo projeto completo: Campeonato de Futebol da Igreja -->
+<!-- Estrutura inicial: index.html, style.css, script.js e README.md -->
+
+<!-- index.html -->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Campeonato da Igreja</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>Menu</h2>
+    <nav>
+      <a href="#registro">Registre</a>
+      <a href="#jogadores">Jogadores</a>
+      <a href="#times">Times</a>
+      <a href="#jogos">Jogos</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <!-- REGISTRO -->
+    <section id="registro">
+      <h2>Registrar Jogador</h2>
+      <form id="formRegistro" class="form">
+        <label>Nome e Sobrenome
+          <input type="text" id="nome" required>
+        </label>
+        <label>Telefone (DDD + 9 + número)
+          <input type="tel" id="telefone" placeholder="(11) 9XXXX-XXXX" required>
+        </label>
+        <button type="submit" class="btn">Registrar</button>
+      </form>
+      <p id="registroMsg" class="msg"></p>
+    </section>
+
+    <!-- JOGADORES -->
+    <section id="jogadores">
+      <h2>Jogadores Registrados</h2>
+      <table class="tabela">
+        <thead>
+          <tr><th>Nome</th><th>Gols</th></tr>
+        </thead>
+        <tbody id="listaJogadores"></tbody>
+      </table>
+    </section>
+
+    <!-- TIMES -->
+    <section id="times">
+      <h2>Times</h2>
+      <div id="listaTimes" class="times-grid"></div>
+      <div id="timeDetalhe" class="time-detalhe hidden"></div>
+    </section>
+
+    <!-- JOGOS -->
+    <section id="jogos">
+      <h2>Jogos</h2>
+      <div id="listaJogos"></div>
+      <div id="detalheJogo" class="jogo-detalhe hidden"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+/* style.css */
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial, sans-serif}
+body{display:flex;background:#f3f4f6;color:#111}
+.sidebar{width:220px;background:#1e3a8a;color:white;height:100vh;padding:1rem;position:fixed}
+.sidebar h2{text-align:center;margin-bottom:1rem}
+.sidebar nav a{display:block;padding:.5rem;margin:.3rem 0;color:white;text-decoration:none;border-radius:6px}
+.sidebar nav a:hover{background:#3b82f6}
+.content{margin-left:240px;padding:2rem;width:100%}
+h2{margin-bottom:1rem;color:#1e3a8a}
+.form{display:grid;gap:.6rem;max-width:300px}
+input{padding:.5rem;border:1px solid #ccc;border-radius:6px}
+.btn{padding:.6rem 1rem;background:#1e3a8a;color:white;border:none;border-radius:6px;cursor:pointer}
+.btn:hover{background:#3b82f6}
+.msg{margin-top:.5rem;color:#b91c1c}
+.tabela{width:100%;border-collapse:collapse;margin-top:1rem}
+.tabela th,.tabela td{border:1px solid #ccc;padding:.5rem;text-align:left}
+.times-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1rem}
+.time-card{background:white;border:1px solid #ddd;border-radius:8px;padding:1rem;text-align:center;cursor:pointer}
+.time-detalhe,.jogo-detalhe{margin-top:2rem;padding:1rem;background:white;border-radius:8px;border:1px solid #ddd}
+.hidden{display:none}
+.jogador-linha{display:flex;justify-content:space-between;margin:.4rem 0}
+.jogador-linha button{padding:.2rem .5rem}
+
+
+// script.js
+let jogadores = [];
+let times = [
+  { id:1, nome:"Time A", escudo:"", jogadores:[] },
+  { id:2, nome:"Time B", escudo:"", jogadores:[] },
+  { id:3, nome:"Time C", escudo:"", jogadores:[] },
+  { id:4, nome:"Time D", escudo:"", jogadores:[] },
+  { id:5, nome:"Time E", escudo:"", jogadores:[] },
+  { id:6, nome:"Time F", escudo:"", jogadores:[] }
+];
+let jogos = [];
+
+// REGISTRO
+const form = document.getElementById('formRegistro');
+const msg = document.getElementById('registroMsg');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const nome = document.getElementById('nome').value.trim();
+  const telefone = document.getElementById('telefone').value.trim();
+
+  if(jogadores.some(j => j.nome.toLowerCase() === nome.toLowerCase())){
+    msg.textContent = "Nome já registrado.";
+    return;
+  }
+  if(jogadores.some(j => j.telefone === telefone)){
+    msg.textContent = "Telefone já registrado.";
+    return;
+  }
+  jogadores.push({ nome, telefone, gols:0 });
+  atualizarJogadores();
+  msg.textContent = "Registrado com sucesso!";
+  form.reset();
+});
+
+function atualizarJogadores(){
+  const corpo = document.getElementById('listaJogadores');
+  corpo.innerHTML = jogadores.map(j => `<tr><td>${j.nome}</td><td>${j.gols}</td></tr>`).join('');
+}
+
+// TIMES
+function carregarTimes(){
+  const area = document.getElementById('listaTimes');
+  area.innerHTML = times.map(t => `
+    <div class="time-card" onclick="abrirTime(${t.id})">${t.nome}</div>
+  `).join('');
+}
+carregarTimes();
+
+function abrirTime(id){
+  const time = times.find(t => t.id===id);
+  const det = document.getElementById('timeDetalhe');
+  det.innerHTML = `<h3>${time.nome}</h3>` +
+    time.jogadores.map(j => `<p>${j}</p>`).join('');
+  det.classList.remove('hidden');
+}
+
+// JOGOS (estrutura futura)
+function abrirJogo(id){
+  const j = jogos.find(x => x.id===id);
+  const box = document.getElementById('detalheJogo');
+  box.innerHTML = `<h3>${j.timeA} x ${j.timeB}</h3>`;
+  box.classList.remove('hidden');
+}
+
+
+<!-- README.md -->
+# Sistema do Campeonato da Igreja
+Site para registro de jogadores, organização de times e jogos.
+
+## Como publicar no GitHub Pages
+1. Crie o repositório `seuusuario.github.io`
+2. Envie os arquivos index.html, style.css e script.js
+3. Acesse: https://seuusuario.github.io
+
+Mais tarde posso adicionar banco de dados local (localStorage) ou integração em nuvem.
