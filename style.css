@@ -24,9 +24,7 @@ nav button {
   font-weight: bold;
 }
 main { padding: 20px; }
-
 .hidden { display: none; }
-
 table {
   width: 100%;
   background: white;
@@ -36,7 +34,6 @@ th, td {
   border: 1px solid #ccc;
   padding: 10px;
 }
-
 #listaTimes img {
   width: 120px;
   display: block;
@@ -48,4 +45,9 @@ th, td {
   background: white;
   padding: 10px;
   border-radius: 10px;
+}
+.tabela-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

@@ -1,8 +1,10 @@
-# Site do Campeonato da Igreja - Versão 2
+# Campeonato Legacy - Site v3
 
-Agora com:
-- Layout mais bonito
-- Armazenamento LocalStorage para registrar jogadores
-- Escudos provisórios para 6 times
+Inclui:
+- Layout atualizado
+- Novo índice: Tabela
+- Fase de grupos com estatísticas
+- Navegação entre Grupos → Semi → Final
+- Armazenamento de jogadores
 
-Pronto para subir no GitHub Pages.
+Pronto para uso e hospedagem no GitHub Pages.
