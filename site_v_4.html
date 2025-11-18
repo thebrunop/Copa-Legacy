@@ -1,0 +1,111 @@
+<!-- Projeto Campeonato Legacy - Versão 4 -->
+<!-- Estrutura inicial. Arquivos separados abaixo -->
+
+<!-- ==================================== -->
+<!-- ========== index.html ============== -->
+<!-- ==================================== -->
+
+<!-- Use uma estrutura de tabs para navegar -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campeonato Legacy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+    <header class="bg-green-700 text-white p-4 flex items-center gap-4">
+        <img src="assets/logo.png" class="w-12 h-12" />
+        <h1 class="text-3xl font-bold">Campeonato Legacy</h1>
+    </header>
+
+    <div class="flex">
+        <aside class="w-60 bg-white shadow-md h-screen p-4">
+            <nav class="flex flex-col gap-3 text-lg">
+                <button onclick="openPage('register')">Registrar</button>
+                <button onclick="openPage('players')">Jogadores</button>
+                <button onclick="openPage('teams')">Times</button>
+                <button onclick="openPage('games')">Jogos</button>
+                <button onclick="openPage('table')">Tabela</button>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-6">
+            <section id="register" class="page hidden"></section>
+            <section id="players" class="page hidden"></section>
+            <section id="teams" class="page hidden"></section>
+            <section id="games" class="page hidden"></section>
+            <section id="table" class="page hidden"></section>
+        </main>
+    </div>
+
+<script src="app.js"></script>
+</body>
+</html>
+
+
+<!-- ==================================== -->
+<!-- ========== app.js ================== -->
+<!-- ==================================== -->
+
+/* Gestão básica usando localStorage como banco de dados */
+
+let db = {
+    players: JSON.parse(localStorage.getItem('players') || '[]'),
+    teams: JSON.parse(localStorage.getItem('teams') || '[]'),
+    games: JSON.parse(localStorage.getItem('games') || '[]')
+};
+
+function saveDB() {
+    localStorage.setItem('players', JSON.stringify(db.players));
+    localStorage.setItem('teams', JSON.stringify(db.teams));
+    localStorage.setItem('games', JSON.stringify(db.games));
+}
+
+function openPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+}
+
+/* Registro de jogadores com verificação */
+function registerPlayer(name, phone) {
+    if (db.players.some(p => p.name === name || p.phone === phone)) {
+        alert('Jogador já registrado!');
+        return;
+    }
+    db.players.push({ name, phone, goals: 0 });
+    saveDB();
+}
+
+
+<!-- ==================================== -->
+<!-- ========== styles.css =============== -->
+<!-- ==================================== -->
+
+/* Layout custom */
+
+.page { display: none; }
+.page:not(.hidden) { display: block; }
+
+.green-arrow {
+    width: 28px;
+    height: 28px;
+    filter: brightness(0) saturate(100%) invert(52%) sepia(88%) saturate(534%) hue-rotate(75deg) brightness(95%) contrast(87%);
+}
+
+
+<!-- ==================================== -->
+<!-- ========== assets/escudos =========== -->
+<!-- ==================================== -->
+
+/* Escudos provisórios livres de direitos autorais (SVG) */
+
+assets/team1.svg
+assets/team2.svg
+assets/team3.svg
+assets/team4.svg
+assets/team5.svg
+assets/team6.svg
