@@ -86,7 +86,7 @@ function atualizarTabela() {
 
 function gerarGrupos() {
   let grupos = {
-    A: ["Time 1", "Time 2", "Time 3"],
+    A: ["Yesha FC", "Clube Atlético Galileu", "Filhos da Luz United"],
     B: ["Time 4", "Time 5", "Time 6"]
   };
 
