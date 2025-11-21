@@ -1,0 +1,6 @@
+<svg width="200" height="240" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#1b4332"/><stop offset="100%" stop-color="#2d6a4f"/></linearGradient></defs>
+<path d="M100 10 L180 60 L160 200 L100 230 L40 200 L20 60 Z" fill="url(#g)" stroke="black"/>
+<text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="22" fill="white" font-family="Arial">Oração Dortmund</text>
+</svg>
